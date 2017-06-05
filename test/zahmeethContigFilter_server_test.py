@@ -76,7 +76,7 @@ class zahmeethContigFilterTest(unittest.TestCase):
         return self.__class__.ctx
 
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
-    def test_your_method(self):
+    def test_filter_contigs(self):
         # Prepare test objects in workspace if needed using
         # self.getWsClient().save_objects({'workspace': self.getWsName(),
         #                                  'objects': []})
@@ -86,5 +86,23 @@ class zahmeethContigFilterTest(unittest.TestCase):
         #
         # Check returned data with
         # self.assertEqual(ret[...], ...) or other unittest methods
+        def test_filter_contigs(self):
+        obj_name = "contigset.1"
+        contig1 = {'id': '1', 'length': 10, 'md5': 'md5', 'sequence': 'agcttttcat'}
+        contig2 = {'id': '2', 'length': 20, 'md5': 'md5', 'sequence': 'agcttttcatagcttttcat'}
+        obj = {'contigs': [contig1, contig2], 'id': 'id', 'md5': 'md5', 'name': 'name', 
+                'source': 'source', 'source_id': 'source_id', 'type': 'type'}
+        self.getWsClient().save_objects({'workspace': self.getWsName(), 'objects':
+            [{'type': 'KBaseGenomes.ContigSet', 'name': obj_name, 'data': obj}]})
+        ret = self.getImpl().filter_contigs(self.getContext(), 
+                                {
+                                    'workspace':self.getWsName(), 
+                                    'contigset_id':obj_name,
+                                    'min_length': 15
+                                })
+
+        self.assertEqual(ret[0]['n_initial_contigs'], 2)
+        self.assertEqual(ret[0]['n_contigs_removed'], 1)
+        self.assertEqual(ret[0]['n_contigs_remaining'], 1)
         
-        pass
+    
