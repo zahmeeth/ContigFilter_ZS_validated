@@ -76,17 +76,8 @@ class zahmeethContigFilterTest(unittest.TestCase):
         return self.__class__.ctx
 
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
+        
     def test_filter_contigs(self):
-        # Prepare test objects in workspace if needed using
-        # self.getWsClient().save_objects({'workspace': self.getWsName(),
-        #                                  'objects': []})
-        #
-        # Run your method by
-        # ret = self.getImpl().your_method(self.getContext(), parameters...)
-        #
-        # Check returned data with
-        # self.assertEqual(ret[...], ...) or other unittest methods
-        def test_filter_contigs(self):
         obj_name = "contigset.1"
         contig1 = {'id': '1', 'length': 10, 'md5': 'md5', 'sequence': 'agcttttcat'}
         contig2 = {'id': '2', 'length': 20, 'md5': 'md5', 'sequence': 'agcttttcatagcttttcat'}
